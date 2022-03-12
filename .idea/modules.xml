@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/renli-generator/renli-generator.iml" filepath="$PROJECT_DIR$/renli-generator/renli-generator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/renli-server/renli-server.iml" filepath="$PROJECT_DIR$/renli-server/renli-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vrenli.iml" filepath="$PROJECT_DIR$/vrenli.iml" />
+    </modules>
+  </component>
+</project>
