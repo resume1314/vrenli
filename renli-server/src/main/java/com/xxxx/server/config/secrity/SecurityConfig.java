@@ -17,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.Filter;
 import java.util.List;
@@ -33,9 +34,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private IAdminService adminService;
 
+    @Autowired
+    private RestAuthorizationEntryPoint restAuthorizationEntryPoint;
+
+    @Autowired
+    private RestfulAccessDeniedHander restfulAccessDeniedHander;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+    }
+
+    @Override
+    public void init(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers(
+                "/login",
+                "/logout",
+                "/css/**",
+                "/js/**",
+                "/index.html",
+                "/favicon.ico",
+                "/doc.html",
+                "/webjars/**",
+        "/swagger-resources/**",
+                "/v2/api-docs/**");
+
     }
 
     @Override
@@ -55,14 +78,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                 .authenticated()
                 .and()
+                //禁用缓存
                 .headers()
                 .cacheControl();
         //添加jwt 登录授权过滤器
-        http.addFilterBefore();
+        http.addFilterBefore(jwtAuthencationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         //添加自定义未授权和未登录结果返回
         http.exceptionHandling()
-                .accessDeniedHandler()
-                .authenticationEntryPoint();
+                .accessDeniedHandler(restfulAccessDeniedHander)
+                .authenticationEntryPoint(restAuthorizationEntryPoint);
     }
 
     @Override

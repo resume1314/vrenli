@@ -3,6 +3,7 @@ package com.xxxx.server.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xxxx.server.pojo.Admin;
 import com.xxxx.server.pojo.RespBean;
+import org.apache.ibatis.annotations.Mapper;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author zhouyunsheng
  * @since 2022-02-28
  */
+@Mapper
 public interface IAdminService extends IService<Admin> {
 
     /**

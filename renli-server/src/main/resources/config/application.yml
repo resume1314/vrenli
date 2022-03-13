@@ -2,13 +2,15 @@ server:
   #端口
   port: 8081
 
+
 spring:
+
   #数据源配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/renli?useUnicode=true&characterEncoding=UTF-&&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: zhou852301
     hikari:
       #连接池名
       pool-name: DateHikariCP
@@ -40,8 +42,9 @@ jwt :
   # JWT存储的请求头
   tokenHeader: Authorization
   # JWT 加解密使用的密钥
-  secret: yeb-secret
+  secret: renli-secret
   # JWT的超期限时间（60*60*24）
   expiration: 604800
   # JWT 负载中拿到开头
   tokenHead: Bearer
+
